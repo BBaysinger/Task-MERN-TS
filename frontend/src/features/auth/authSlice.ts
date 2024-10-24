@@ -1,9 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
+import axios from "axios";
 
-const localuser = JSON.parse(localStorage.getItem("user"));
+interface User {
+  name: string;
+  email: string;
+  password: string;
+}
 
-const initialState = {
+export interface AuthState {
+  user: User | null;
+  isError: boolean;
+  isSuccess: boolean;
+  isLoading: boolean;
+  message: string | null;
+}
+
+const userString = localStorage.getItem("user");
+const localuser: User = userString ? JSON.parse(userString) : { name: "" };
+
+const initialState: AuthState = {
   user: localuser ? localuser : null,
   isError: false,
   isSuccess: false,
@@ -17,12 +33,17 @@ export const register = createAsyncThunk(
     try {
       return await authService.register(user);
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      let message = 'An error occurred.';
+
+      if (error instanceof Error) {
+        message = error.message;
+      }
+    
+      if (axios.isAxiosError(error)) {
+        message =
+          (error.response?.data?.message) || 
+          message; // Keep fallback message
+      }
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -32,10 +53,17 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
     return await authService.login(user);
   } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
+    let message = 'An error occurred.';
+
+    if (error instanceof Error) {
+      message = error.message;
+    }
+  
+    if (axios.isAxiosError(error)) {
+      message =
+        (error.response?.data?.message) || 
+        message; // Keep fallback message
+    }
     return thunkAPI.rejectWithValue(message);
   }
 });
@@ -69,7 +97,7 @@ export const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.message = action.payload as string;
         state.user = null;
       })
       .addCase(login.pending, (state) => {
@@ -83,7 +111,7 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.message = action.payload as string;
         state.user = null;
       })
       .addCase(logout.fulfilled, (state) => {

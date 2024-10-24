@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import TaskForm from "./TaskForm";
+import { RootState } from "/app/store";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state:RootState) => state.auth);
 
   useEffect(() => {
     if (!user) navigate("/login");
