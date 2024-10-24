@@ -1,21 +1,27 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { getTasks, reset } from "../features/tasks/taskSlice";
 import TaskItem from "./TaskItem";
 import Spinner from "./Spinner";
-import { useNavigate } from "react-router-dom";
+import { RootState } from "app/store";
+import type { AppDispatch } from "app/store"; // Import AppDispatch
 
 const TaskList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { tasks, isLoading, isError, message } = useSelector(
-    (state) => state.tasks
+    (state: RootState) => state.tasks
   );
 
   useEffect(() => {
     if (isError) console.log(message);
     dispatch(getTasks());
-    return () => dispatch(reset());
+    // Cleanup function, just call the dispatch without returning it
+    return () => {
+      dispatch(reset());
+    };
   }, [navigate, isError, message, dispatch]);
 
   return isLoading ? (

@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { createTask } from "../features/tasks/taskSlice";
 import { useNavigate } from "react-router-dom";
+
+import { createTask } from "features/tasks/taskSlice";
+import { AppDispatch } from "app/store";
 
 const TaskForm = () => {
   const [text, setText] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(createTask({ text }));
+    const newTask = {
+      id: Date.now().toString(), // Generate a unique ID (or use your method)
+      text,
+      completed: false, // Assuming the task is not completed initially
+      title: "Mock Title",
+      description: "Mock description.",
+    };
+    dispatch(createTask(newTask));
     setText("");
     navigate("/alltasks");
   };

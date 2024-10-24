@@ -6,6 +6,7 @@ interface User {
   name: string;
   email: string;
   password: string;
+  token: string;
 }
 
 export interface AuthState {
@@ -38,10 +39,10 @@ export const register = createAsyncThunk(
       if (error instanceof Error) {
         message = error.message;
       }
-    
+
       if (axios.isAxiosError(error)) {
         message =
-          (error.response?.data?.message) || 
+          (error.response?.data?.message) ||
           message; // Keep fallback message
       }
       return thunkAPI.rejectWithValue(message);
@@ -58,10 +59,10 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
     if (error instanceof Error) {
       message = error.message;
     }
-  
+
     if (axios.isAxiosError(error)) {
       message =
-        (error.response?.data?.message) || 
+        (error.response?.data?.message) ||
         message; // Keep fallback message
     }
     return thunkAPI.rejectWithValue(message);

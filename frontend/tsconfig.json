@@ -5,6 +5,8 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "types": ["@testing-library/jest-dom", "jest", "node"], // Add other types as needed
+    "esModuleInterop": true,
     "emitDeclarationOnly": true,
     "composite": true,
     "baseUrl": "./src", // Set base directory to src

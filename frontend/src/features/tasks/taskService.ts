@@ -2,7 +2,23 @@ import axios from "axios";
 
 const API_URL = "/api/tasks/";
 
-const createTask = async (taskData, token) => {
+// Type for creating a task (info sent to server)
+export interface TaskData {
+  title: string;
+  description: string;
+}
+
+// Type for a full task entity returned from the server
+export interface Task {
+  _id: string; // Unique identifier for the task
+  title: string;
+  text: string;
+  description: string; // This might be unused ('text' property maybe instead). TODO: Determine that.
+  createdAt: string; // ISO string or Date object, depending on your implementation
+  updatedAt: string; // ISO string or Date object
+}
+
+const createTask = async (taskData: TaskData, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -12,7 +28,7 @@ const createTask = async (taskData, token) => {
   return response.data;
 };
 
-const getTasks = async (token) => {
+const getTasks = async (token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -27,7 +43,7 @@ const getTasks = async (token) => {
   }
 };
 
-const deleteTask = async (id, token) => {
+const deleteTask = async (id: string, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

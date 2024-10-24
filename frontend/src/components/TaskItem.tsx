@@ -1,8 +1,15 @@
 import { useDispatch } from "react-redux";
-import { deleteTask } from "../features/tasks/taskSlice";
 
-const TaskItem = ({ task }) => {
-  const dispatch = useDispatch();
+import { AppDispatch } from 'app/store'; // Import your AppDispatch type
+import { deleteTask } from "features/tasks/taskSlice";
+import { Task } from "features/tasks/taskService";
+
+interface TaskItemProps {
+  task: Task;
+}
+
+const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
+  const dispatch: AppDispatch = useDispatch(); // Type the dispatch
 
   return (
     <div className="task">
