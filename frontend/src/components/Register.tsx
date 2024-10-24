@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { FaUser } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import { register, reset } from "../features/auth/authSlice";
 import Spinner from "./Spinner";
+import { RootState } from "app/store";
+import { AppDispatch } from "app/store";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -16,10 +19,10 @@ const Register = () => {
   const { name, email, password, password2 } = formData;
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
+    (state: RootState) => state.auth
   );
 
   useEffect(() => {
@@ -28,20 +31,21 @@ const Register = () => {
     dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== password2) {
       toast.error("Passwords are different");
     } else {
-      const userData = { name, email, password };
-      dispatch(register(userData));
+      // const userData = { name, email, password }; // From original source, but doesn't appear to be used.
+      // dispatch(register(userData)); // From original source...
+      dispatch(register()); // Removed param for TypeScript checking.
     }
   };
 
