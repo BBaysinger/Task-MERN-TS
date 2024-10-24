@@ -7,10 +7,11 @@
 
     /* Bundler mode */
     "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    // "allowImportingTsExtensions": false, // Removed to solve error.
+    // "noEmit": true, // Removed to solve error.
+    "composite": true, // Added to solve error.
 
     /* Linting */
     "strict": true,
@@ -19,5 +20,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
+  "composite": true,
   "include": ["vite.config.ts"]
 }

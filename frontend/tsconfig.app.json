@@ -8,18 +8,19 @@
 
     /* Bundler mode */
     "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
     "jsx": "react-jsx",
+    // "allowImportingTsExtensions": false, // Removed to solve error.
+    // "noEmit": true, // Removed to solve error.
+    "composite": true, // Added to solve error.
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
   },
   "include": ["src"]
 }
