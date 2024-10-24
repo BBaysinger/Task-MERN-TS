@@ -7,10 +7,10 @@
   "compilerOptions": {
     "emitDeclarationOnly": true,
     "composite": true,
-    "baseUrl": "src",
+    "baseUrl": "./src", // Set base directory to src
     "paths": {
-      "@/*": ["*"]
+      "*": ["./*"] // Simplifies module resolution from src
     }
   },
-  "include": ["src"]
+  "include": ["src/**/*"] // Ensure src is included
 }
