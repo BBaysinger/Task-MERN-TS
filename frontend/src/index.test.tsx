@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
 
-test("renders the root component correctly", () => {
+test("renders the root component", () => {
   const { container } = render(
     <Provider store={store}>
       <App />
