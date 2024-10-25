@@ -2,19 +2,18 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 import axios from "axios";
 
-// A logged in user.
-export interface User {
-  name: string;
-  email: string;
-  password: string;
-  token: string;
-}
 
 // For sending login credentials.
 export interface UserData {
   username?: string;
   email: string;
   password: string;
+}
+
+// An established and logged in user.
+export interface User extends UserData {
+  name: string;
+  token: string;
 }
 
 export interface AuthState {

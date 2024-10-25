@@ -2,13 +2,14 @@ import axios from "axios";
 
 const API_URL = "/api/tasks/";
 
+// Only for creating tasks.
 export interface TaskData {
   text: string;
 }
 
-export interface Task {
+// For an established task.
+export interface Task extends TaskData {
   _id: string;
-  text: string;
   user: string;
   createdAt: string;
   updatedAt: string;
