@@ -23,8 +23,7 @@ describe("taskService", () => {
     ];
 
     mock
-      // .onGet("/api/tasks/", { headers: { Authorization: `Bearer ${token}` } }) // Breaks it.
-      .onGet("/api/tasks/") // Doesn't break it.
+      .onGet("/api/tasks/", { headers: { Authorization: `Bearer ${token}` } })
       .reply(200, tasks);
     const response = await taskService.getTasks(token);
     expect(response).toEqual(tasks);

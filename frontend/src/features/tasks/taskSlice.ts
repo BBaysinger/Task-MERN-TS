@@ -3,7 +3,7 @@ import axios from "axios";
 
 import taskService from "./taskService";
 import { RootState } from "app/store";
-import { Task } from "./taskService";
+import { Task, TaskData } from "./taskService";
 
 export interface TaskState {
   tasks: Task[];
@@ -21,13 +21,7 @@ const initialState: TaskState = {
   message: "",
 };
 
-// Define a type for task data
-interface CreateTaskData {
-  title: string; // Add other properties as per your task structure
-  description: string;
-}
-
-export const createTask = createAsyncThunk<Task, CreateTaskData, { state: RootState }>(
+export const createTask = createAsyncThunk<Task, TaskData, { state: RootState }>(
   "tasks/create",
   async (taskData, thunkAPI) => {
     try {
@@ -79,8 +73,8 @@ export const deleteTask = createAsyncThunk<string, string, { state: RootState }>
       if (!token) {
         return thunkAPI.rejectWithValue("Authentication token is missing or invalid.");
       }
-      await taskService.deleteTask(id, token); // Assuming this doesn't return anything
-      return id; // Return the id for filtering the task later
+      await taskService.deleteTask(id, token);
+      return id;
     } catch (error) {
       let message = 'An error occurred.';
       if (error instanceof Error) {

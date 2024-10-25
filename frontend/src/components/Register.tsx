@@ -43,9 +43,8 @@ const Register = () => {
     if (password !== password2) {
       toast.error("Passwords are different");
     } else {
-      // const userData = { name, email, password }; // From original source, but doesn't appear to be used.
-      // dispatch(register(userData)); // From original source...
-      dispatch(register()); // Removed param for TypeScript checking.
+      const userData = { name, email, password };
+      dispatch(register(userData));
     }
   };
 

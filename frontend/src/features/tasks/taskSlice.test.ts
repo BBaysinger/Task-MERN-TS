@@ -1,14 +1,28 @@
 import thunk, { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
-import { RootState } from 'app/store'; // Adjust the import to your project structure
-import { getTasks } from './taskSlice'; // Import your thunk action
+
+import { RootState } from 'app/store';
+import { getTasks } from './taskSlice';
+import { Task } from './taskService';
 import taskService from './taskService';
 import configureMockStore from 'redux-mock-store';
 
-type DispatchExts = ThunkDispatch<RootState, undefined, AnyAction>;
+type FetchTasksSuccess = {
+  type: 'FETCH_TASKS_SUCCESS';
+  payload: Task[];
+};
+
+type FetchTasksFailure = {
+  type: 'FETCH_TASKS_FAILURE';
+  error: string;
+};
+
+// Combine into a union type
+type TaskActions = FetchTasksSuccess | FetchTasksFailure;
+
+type DispatchExts = ThunkDispatch<RootState, undefined, TaskActions>;
 
 // Create the mock store with thunk middleware
-const middleware = [thunk];
+const middleware: any = [thunk]; // This was a fiasco. Eventually typed to 'any'.
 const mockStore = configureMockStore<RootState, DispatchExts>(middleware);
 
 describe('taskSlice', () => {
@@ -44,7 +58,7 @@ describe('taskSlice', () => {
 
   test('calls the taskService to fetch tasks', async () => {
     const token = 'mock_token';
-    const tasks = [
+    const tasks: Task[] = [
       {
         _id: '649e4e271947362dc297436a',
         text: 'Learn Tailwind',
@@ -55,11 +69,17 @@ describe('taskSlice', () => {
       },
     ];
 
-    // Mock the taskService.getTasks method
-    const getTasksSpy = jest.spyOn(taskService, 'getTasks').mockResolvedValue(tasks);
+    // Mock the getTasks implementation
+    const getTasksMock = jest.fn().mockResolvedValue(tasks);
 
-    await store.dispatch(getTasks());
+    // Spy on the service and replace it with the mocked function
+    jest.spyOn(taskService, 'getTasks').mockImplementation(getTasksMock);
 
-    expect(getTasksSpy).toHaveBeenCalledWith(token);
+    // Dispatch the thunk with the token
+    await store.dispatch(getTasks()); // Make sure to pass the token here
+
+    // Check if the mock was called correctly
+    expect(getTasksMock).toHaveBeenCalledWith(token);
+    expect(getTasksMock).toHaveReturnedWith(Promise.resolve(tasks)); // Check return value
   });
 });

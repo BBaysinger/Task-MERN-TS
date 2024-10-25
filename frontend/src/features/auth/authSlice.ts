@@ -2,11 +2,19 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 import axios from "axios";
 
-interface User {
+// A logged in user.
+export interface User {
   name: string;
   email: string;
   password: string;
   token: string;
+}
+
+// For sending login credentials.
+export interface UserData {
+  username?: string;
+  email: string;
+  password: string;
 }
 
 export interface AuthState {
@@ -30,9 +38,9 @@ const initialState: AuthState = {
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (user, thunkAPI) => {
+  async (userData: UserData, thunkAPI) => {
     try {
-      return await authService.register(user);
+      return await authService.register(userData);
     } catch (error) {
       let message = 'An error occurred.';
 
@@ -50,9 +58,9 @@ export const register = createAsyncThunk(
   }
 );
 
-export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
+export const login = createAsyncThunk("auth/login", async (userData: UserData, thunkAPI) => {
   try {
-    return await authService.login(user);
+    return await authService.login(userData);
   } catch (error) {
     let message = 'An error occurred.';
 

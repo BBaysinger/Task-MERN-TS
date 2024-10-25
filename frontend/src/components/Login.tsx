@@ -8,6 +8,7 @@ import { login, reset } from "features/auth/authSlice";
 import { RootState } from "app/store";
 import Spinner from "./Spinner";
 import { AppDispatch } from "app/store";
+import { UserData } from "features/auth/authSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -36,9 +37,8 @@ const Login = () => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const userData = { email, password }; // From original source, but doesn't appear to be used.
-    // dispatch(login(userData)); // From original source...
-    dispatch(login()); // Removed param for TypeScript checking.
+    const userData: UserData = { email, password };
+    dispatch(login(userData));
   };
 
   return isLoading ? (

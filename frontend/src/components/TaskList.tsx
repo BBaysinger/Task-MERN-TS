@@ -6,7 +6,7 @@ import { getTasks, reset } from "../features/tasks/taskSlice";
 import TaskItem from "./TaskItem";
 import Spinner from "./Spinner";
 import { RootState } from "app/store";
-import type { AppDispatch } from "app/store"; // Import AppDispatch
+import type { AppDispatch } from "app/store";
 
 const TaskList = () => {
   const dispatch = useDispatch<AppDispatch>();

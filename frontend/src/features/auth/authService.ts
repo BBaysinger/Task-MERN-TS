@@ -1,11 +1,8 @@
 import axios from "axios";
-const API_URL = "/api/users/";
 
-interface UserData {
-  username: string;
-  email: string;
-  password: string;
-}
+import { UserData } from "./authSlice";
+
+const API_URL = "/api/users/";
 
 const register = async (userData: UserData) => {
   const response = await axios.post(API_URL, userData);

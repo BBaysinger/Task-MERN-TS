@@ -8,11 +8,11 @@ import { Task } from "features/tasks/taskService";
 describe("TaskItem", () => {
   const task: Task = {
     _id: "task-123",
-    createdAt: "2023-07-09T10:00:00",
     text: "Learn Blockchain",
-    title: "Mock Title",
-    description: "Mosk description.",
+    user: "QWER23452354QQSDFLJASDF",
+    createdAt: "2023-07-09T10:00:00",
     updatedAt: "2023-06-30T03:38:15.287Z",
+    __v: 0,
   };
 
   const mockStore = configureStore([]);
