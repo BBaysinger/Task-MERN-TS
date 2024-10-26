@@ -1,10 +1,12 @@
 # TypeScript Refactor of the Codebase from the Book: Ultimate Full-Stack Web Development with MERN
 
-- by Nabendu Biswas (Author)
+by Nabendu Biswas (Author)
 
-# Major Changes:
+# Version Changes:
 
-- React 18.2.0 > React 18.3.1
+- React 18.2.0 > 18.3.1
+
+- React Router 6.14.1 > 6.27.0
   
 - ES6/Babel > TypeScript 4.9.5
   
