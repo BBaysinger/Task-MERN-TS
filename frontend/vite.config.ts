@@ -7,4 +7,11 @@ export default defineConfig({
     react(),
     tsconfigPaths()
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler' // or "modern"
+      },
+    },
+  },
 });
