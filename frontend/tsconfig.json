@@ -2,7 +2,6 @@
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
     "types": ["@testing-library/jest-dom", "jest", "node"], // Add other types as needed
@@ -10,6 +9,7 @@
     "emitDeclarationOnly": true,
     "composite": true,
     "baseUrl": "./src", // Set base directory to src
+    "jsx": "react-jsx",
     "paths": {
       "*": ["./*"] // Simplifies module resolution from src
     }

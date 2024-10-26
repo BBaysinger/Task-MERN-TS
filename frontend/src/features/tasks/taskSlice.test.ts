@@ -1,4 +1,4 @@
-import thunk, { ThunkDispatch } from 'redux-thunk';
+import { thunk, ThunkDispatch } from 'redux-thunk';
 
 import { RootState } from 'app/store';
 import { getTasks } from './taskSlice';
