@@ -48,21 +48,12 @@ class MockResponseBody {
 
 // Mock response
 export class MockResponse extends MockResponseBody implements Partial<Response> {
-  headers: MockResponseHeaders;
-  app: Application<Record<string, any>>;
-  req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>;
-  statusMessage: string;
-  strictContentLength: boolean;
-  chunkedEncoding: boolean;
 
   constructor() {
     super();
     this.headers = new MockResponseHeaders();
     this.app = {} as Application<Record<string, any>>;
     this.req = {} as Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>;
-    this.statusMessage = ""; // Set default value to an empty string
-    this.strictContentLength = false; // Set default value to false
-    this.chunkedEncoding = false; // Set default value to false
   }
 
   // Implementing commonly used Response methods
@@ -84,75 +75,94 @@ export class MockResponse extends MockResponseBody implements Partial<Response> 
     return this as unknown as Response;
   };
 
+  // General Properties
+  headers: MockResponseHeaders;
+  app: Application<Record<string, any>>;
+  req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>;
+  statusMessage: string = '';
+  charset: string = '';
+  locals = {};
+
+  // Response Handling Methods
   links = jest.fn();
   jsonp = jest.fn();
   sendFile = jest.fn();
+  sendfile = jest.fn();
+  send = jest.fn();
   redirect = jest.fn();
   render = jest.fn();
-  locals = {};
-  sendfile = jest.fn();
   download = jest.fn();
   contentType = jest.fn();
   type = jest.fn();
   format = jest.fn();
   attachment = jest.fn();
+  end = jest.fn();
+
+  // Header Management
   set = jest.fn();
   header = jest.fn();
   get = jest.fn();
-  headersSent = false;
-  clearCookie = jest.fn();
-  cookie = jest.fn();
-  location = jest.fn();
-  charset = "";
-  vary = jest.fn();
-  init = jest.fn();
-  append = jest.fn();
-  assignSocket = jest.fn();
-  detachSocket = jest.fn();
-  writeContinue = jest.fn();
-  writeEarlyHints = jest.fn();
-  writeHead = jest.fn();
-  writeProcessing = jest.fn();
-  shouldKeepAlive: boolean = false;
-  sendDate: boolean = false;
-  useChunkedEncodingByDefault: boolean = false;
-  finished: boolean = false;
-  connection: Socket | null = null;
-  socket: Socket | null = null;
-  setTimeout = jest.fn();
-  setHeaders = jest.fn();
   appendHeader = jest.fn();
+  setHeaders = jest.fn();
   getHeaders = jest.fn();
   getHeaderNames = jest.fn();
   hasHeader = jest.fn();
-  addTrailers = jest.fn();
   flushHeaders = jest.fn();
-  writable = false;
-  writableEnded = false;
+  vary = jest.fn();
+  clearCookie = jest.fn();
+  cookie = jest.fn();
+  location = jest.fn();
+
+  // Connection Properties
+  connection: Socket | null = null;
+  socket: Socket | null = null;
+  assignSocket = jest.fn();
+  detachSocket = jest.fn();
+  writeHead = jest.fn();
+  shouldKeepAlive: boolean = false;
+  sendDate: boolean = false;
+  strictContentLength: boolean = false;
+  chunkedEncoding: boolean = false;
+  useChunkedEncodingByDefault: boolean = false;
+  headersSent: boolean = false;
+  finished: boolean = false;
+
+  // Writable Stream Properties and Methods
+  writable: boolean = false;
+  writableEnded: boolean = false;
+  writableFinished: boolean = false;
+  writableLength: number = 0;
+  writableCorked: number = 0;
+  writableHighWaterMark: number = 0;
+  writableObjectMode: boolean = false;
+  writableNeedDrain: boolean = false;
   writeableFinished = false;
   writeableLength = 0;
   writeableCorked = 0;
   writeableUncorked = false;
-  writeableEncoding = "";
+  writeableEncoding = '';
   writeableHighWaterMark = 0;
-  writableFinished = false;
-  writableCorked: number = 0;
-  writableHighWaterMark: number = 0;
-  writableLength: number = 0;
-  writableObjectMode: boolean = false;
-  destroyed: boolean = false;
-  closed: boolean = false;
-  errored: Error | null = null;
-  writableNeedDrain: boolean = false;
   _write = jest.fn();
   _destroy = jest.fn();
   _final = jest.fn();
   write = jest.fn();
-  setDefaultEncoding = jest.fn();
-  end = jest.fn();
   cork = jest.fn();
   uncork = jest.fn();
   destroy = jest.fn();
+  setDefaultEncoding = jest.fn();
+  addTrailers = jest.fn();
+
+  // Timeout Handling
+  setTimeout = jest.fn();
+
+  // HTTP-Specific Methods
+  init = jest.fn();
+  append = jest.fn();
+  writeContinue = jest.fn();
+  writeEarlyHints = jest.fn();
+  writeProcessing = jest.fn();
+
+  // Event Handling Methods
   addListener = jest.fn();
   emit = jest.fn();
   on = jest.fn();
@@ -160,9 +170,6 @@ export class MockResponse extends MockResponseBody implements Partial<Response> 
   prependListener = jest.fn();
   prependOnceListener = jest.fn();
   removeListener = jest.fn();
-  pipe = jest.fn();
-  compose = jest.fn();
-  off = jest.fn();
   removeAllListeners = jest.fn();
   setMaxListeners = jest.fn();
   getMaxListeners = jest.fn();
@@ -170,6 +177,14 @@ export class MockResponse extends MockResponseBody implements Partial<Response> 
   rawListeners = jest.fn();
   listenerCount = jest.fn();
   eventNames = jest.fn();
+  off = jest.fn();
+  pipe = jest.fn();
+  compose = jest.fn();
+
+  // Miscellaneous Properties
+  closed: boolean = false;
+  destroyed: boolean = false;
+  errored: Error | null = null;
 }
 
 // Helper function to create a mock response
