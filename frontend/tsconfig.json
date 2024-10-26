@@ -13,7 +13,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "paths": {
-      "*": ["./*"] // Simplifies module resolution from src
+      "*": ["*"] // Simplifies module resolution from src
     },
     
     /* Bundler mode */
