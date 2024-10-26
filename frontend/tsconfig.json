@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "target": "es6",
     "types": ["@testing-library/jest-dom", "jest", "node"], // Add other types as needed
     "esModuleInterop": true,
@@ -11,7 +12,10 @@
     "lib": ["es6", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
+    "paths": {
+      "*": ["./*"] // Simplifies module resolution from src
+    },
+    
     /* Bundler mode */
     "moduleResolution": "node",
     "isolatedModules": true,
@@ -22,11 +26,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
-    /*  */
-    "paths": {
-      "*": ["./*"] // Simplifies module resolution from src
-    }
   },
   "include": ["src/**/*"] // Ensure src is included
 }
