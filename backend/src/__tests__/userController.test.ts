@@ -3,7 +3,7 @@ import request from 'supertest';
 import app from './app.test';
 
 // Mock User model functions
-jest.mock('../models/userModel', () => {
+jest.mock('models/userModel', () => {
   // Mock User model
   const mockUser = {
     _id: 'user-id',

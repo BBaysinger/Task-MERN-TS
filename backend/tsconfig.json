@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@types/*": ["../@types/*"]
+      "@types/*": ["@types/*"]
     }
   },
   "include": [

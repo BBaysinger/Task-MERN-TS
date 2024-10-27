@@ -1,11 +1,11 @@
 import { NextFunction } from "express";
 
-import { registerUser } from "../controllers/userController";
+import { registerUser } from "controllers/userController";
 import createMockRequest from "./createMockRequest";
 import createMockResponse from "./createMockResponse";
 
 // Mock User model functions
-jest.mock("../models/userModel", () => {
+jest.mock("models/userModel", () => {
   // Mock User model
   const mockUser = {
     _id: "user-id",
