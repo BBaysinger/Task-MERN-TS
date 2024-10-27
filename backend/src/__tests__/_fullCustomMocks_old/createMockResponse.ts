@@ -3,6 +3,24 @@ import { Application, ParamsDictionary, Request } from "express-serve-static-cor
 import { Socket } from "net";
 import { ParsedQs } from "qs";
 
+/**
+ * Mock HTTP Response instances for TypeScript typing purposes.
+ * 
+ * A little crazy that this is necessary. Give me a shout if you know a better way.
+ * The Response object in Express is a class,
+ * and we can't just create a new instance of it form there. We need to mock it out.
+ * 
+ * This is untested. Proceed with caution and consider that improvements
+ * will probably be necessary.
+ * 
+ * I [BB] worked this out with Chatbot and ChatGPT. They both a agree on this as the solution.
+ * There are libraries that can help with this, but custom mocks offer more control.
+ * 
+ * @author Bradley Baysinger
+ * @since The beginning of time.
+ * @version N/A
+ */
+
 // Mock response headers
 class MockResponseHeaders {
   headers: { [key: string]: string | string[] | undefined } = {};

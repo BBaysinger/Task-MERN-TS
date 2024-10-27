@@ -1,6 +1,25 @@
 import { Request } from "express";
 import { IUser } from "models/userModel";
-import { IncomingHttpHeaders } from "http"; // Import IncomingHttpHeaders
+import { IncomingHttpHeaders } from "http";
+
+/**
+ * Mock HTTP Request instances for TypeScript typing purposes.
+ * 
+ * A little crazy that this is necessary. Give me a shout if you know a better way.
+ * The Request object in Express is a class, and we can't just create a new instance of it from there.
+ * We need to mock it out, and TypeScript demands complete signature in this case, which is why
+ * it's seems bloated.
+ * 
+ * This is untested. Proceed with caution and consider that improvements
+ * will probably be necessary.
+ * 
+ * I [BB] worked this out with Chatbot and ChatGPT. They both a agree on this as the solution.
+ * There are libraries that can help with this, but custom mocks offer more control.
+ * 
+ * @author Bradley Baysinger
+ * @since The beginning of time.
+ * @version N/A
+ */
 
 interface AuthenticatedRequest extends Request {
   user?: IUser;
