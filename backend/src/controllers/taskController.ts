@@ -1,13 +1,15 @@
 import asyncHandler from "express-async-handler";
+import { Request, Response } from 'express';
+
 import Task from "models/taskModel";
 import User from "models/userModel";
 
-export const getTasks = asyncHandler(async (req, res) => {
+export const getTasks = asyncHandler(async (req: Request, res: Response) => {
   const tasks = await Task.find({ user: req.user?._id });
   res.status(200).json(tasks);
 });
 
-export const setTask = asyncHandler(async (req, res) => {
+export const setTask = asyncHandler(async (req: Request, res: Response) => {
   if (!req.body.text) {
     res.status(400);
     throw new Error("Please enter a task");
@@ -17,7 +19,7 @@ export const setTask = asyncHandler(async (req, res) => {
   res.status(200).json(task);
 });
 
-export const updateTask = asyncHandler(async (req, res) => {
+export const updateTask = asyncHandler(async (req: Request, res: Response) => {
   const task = await Task.findById(req.params.id);
 
   if (!task) {
@@ -43,7 +45,7 @@ export const updateTask = asyncHandler(async (req, res) => {
   res.status(200).json(updatedTask);
 });
 
-export const deleteTask = asyncHandler(async (req, res) => {
+export const deleteTask = asyncHandler(async (req: Request, res: Response) => {
   const task = await Task.findById(req.params.id);
 
   if (!task) {
