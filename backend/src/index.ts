@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import connectDB from 'connect/database';
+import { connectDB } from 'connect/database';
 
 // Load environment variables
 dotenv.config();

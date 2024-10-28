@@ -22,11 +22,6 @@ frontend/build/
 # Backend build files
 backend/dist/
 
-# Ignore lock files if using one lockfile
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
 # Ignore TypeScript build output
 *.tsbuildinfo
 
