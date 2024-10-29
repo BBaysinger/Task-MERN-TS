@@ -7,7 +7,7 @@ test("renders the root component", () => {
   const { container } = render(
     <Provider store={store}>
       <App />
-    </Provider>
+    </Provider>,
   );
 
   const rootComponent = container.firstChild;

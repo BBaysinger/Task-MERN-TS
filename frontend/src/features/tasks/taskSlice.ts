@@ -21,27 +21,30 @@ const initialState: TaskState = {
   message: "",
 };
 
-export const createTask = createAsyncThunk<Task, TaskData, { state: RootState }>(
-  "tasks/create",
-  async (taskData, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user?.token;
-      if (!token) {
-        return thunkAPI.rejectWithValue("Authentication token is missing or invalid.");
-      }
-      return await taskService.createTask(taskData, token);
-    } catch (error) {
-      let message = 'An error occurred.';
-      if (error instanceof Error) {
-        message = error.message;
-      }
-      if (axios.isAxiosError(error)) {
-        message = (error.response?.data?.message) || message;
-      }
-      return thunkAPI.rejectWithValue(message);
+export const createTask = createAsyncThunk<
+  Task,
+  TaskData,
+  { state: RootState }
+>("tasks/create", async (taskData, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user?.token;
+    if (!token) {
+      return thunkAPI.rejectWithValue(
+        "Authentication token is missing or invalid.",
+      );
     }
+    return await taskService.createTask(taskData, token);
+  } catch (error) {
+    let message = "An error occurred.";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    if (axios.isAxiosError(error)) {
+      message = error.response?.data?.message || message;
+    }
+    return thunkAPI.rejectWithValue(message);
   }
-);
+});
 
 export const getTasks = createAsyncThunk<Task[], void, { state: RootState }>(
   "tasks/getAll",
@@ -49,44 +52,49 @@ export const getTasks = createAsyncThunk<Task[], void, { state: RootState }>(
     try {
       const token = thunkAPI.getState().auth.user?.token;
       if (!token) {
-        return thunkAPI.rejectWithValue("Authentication token is missing or invalid.");
+        return thunkAPI.rejectWithValue(
+          "Authentication token is missing or invalid.",
+        );
       }
       return await taskService.getTasks(token);
     } catch (error) {
-      let message = 'An error occurred.';
+      let message = "An error occurred.";
       if (error instanceof Error) {
         message = error.message;
       }
       if (axios.isAxiosError(error)) {
-        message = (error.response?.data?.message) || message;
+        message = error.response?.data?.message || message;
       }
       return thunkAPI.rejectWithValue(message);
     }
-  }
+  },
 );
 
-export const deleteTask = createAsyncThunk<string, string, { state: RootState }>(
-  "tasks/delete",
-  async (id, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.user?.token;
-      if (!token) {
-        return thunkAPI.rejectWithValue("Authentication token is missing or invalid.");
-      }
-      await taskService.deleteTask(id, token);
-      return id;
-    } catch (error) {
-      let message = 'An error occurred.';
-      if (error instanceof Error) {
-        message = error.message;
-      }
-      if (axios.isAxiosError(error)) {
-        message = (error.response?.data?.message) || message;
-      }
-      return thunkAPI.rejectWithValue(message);
+export const deleteTask = createAsyncThunk<
+  string,
+  string,
+  { state: RootState }
+>("tasks/delete", async (id, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.user?.token;
+    if (!token) {
+      return thunkAPI.rejectWithValue(
+        "Authentication token is missing or invalid.",
+      );
     }
+    await taskService.deleteTask(id, token);
+    return id;
+  } catch (error) {
+    let message = "An error occurred.";
+    if (error instanceof Error) {
+      message = error.message;
+    }
+    if (axios.isAxiosError(error)) {
+      message = error.response?.data?.message || message;
+    }
+    return thunkAPI.rejectWithValue(message);
   }
-);
+});
 
 export const taskSlice = createSlice({
   name: "task",

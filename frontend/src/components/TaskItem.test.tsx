@@ -22,12 +22,12 @@ describe("TaskItem", () => {
     const { getByText } = render(
       <Provider store={store}>
         <TaskItem task={task} />
-      </Provider>
+      </Provider>,
     );
 
     expect(getByText(task.text)).toBeInTheDocument();
     expect(
-      getByText(new Date(task.createdAt).toLocaleString("en-US"))
+      getByText(new Date(task.createdAt).toLocaleString("en-US")),
     ).toBeInTheDocument();
   });
 });

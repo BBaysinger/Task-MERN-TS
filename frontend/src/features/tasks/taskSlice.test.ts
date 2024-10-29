@@ -1,18 +1,18 @@
-import { thunk, ThunkDispatch } from 'redux-thunk';
+import { thunk, ThunkDispatch } from "redux-thunk";
 
-import { RootState } from 'app/store';
-import { getTasks } from './taskSlice';
-import { Task } from './taskService';
-import taskService from './taskService';
-import configureMockStore from 'redux-mock-store';
+import { RootState } from "app/store";
+import { getTasks } from "./taskSlice";
+import { Task } from "./taskService";
+import taskService from "./taskService";
+import configureMockStore from "redux-mock-store";
 
 type FetchTasksSuccess = {
-  type: 'FETCH_TASKS_SUCCESS';
+  type: "FETCH_TASKS_SUCCESS";
   payload: Task[];
 };
 
 type FetchTasksFailure = {
-  type: 'FETCH_TASKS_FAILURE';
+  type: "FETCH_TASKS_FAILURE";
   error: string;
 };
 
@@ -25,7 +25,7 @@ type DispatchExts = ThunkDispatch<RootState, undefined, TaskActions>;
 const middleware: any = [thunk]; // This was a fiasco. Eventually typed to 'any'.
 const mockStore = configureMockStore<RootState, DispatchExts>(middleware);
 
-describe('taskSlice', () => {
+describe("taskSlice", () => {
   let store: ReturnType<typeof mockStore>;
 
   beforeEach(() => {
@@ -35,19 +35,19 @@ describe('taskSlice', () => {
         isError: false,
         isSuccess: false,
         isLoading: false,
-        message: '',
+        message: "",
       },
       auth: {
         user: {
-          token: 'mock_token',
-          name: 'Mock User',
-          email: 'mockuser@example.com',
-          password: 'mockpassword',
+          token: "mock_token",
+          name: "Mock User",
+          email: "mockuser@example.com",
+          password: "mockpassword",
         },
         isError: false,
         isSuccess: false,
         isLoading: false,
-        message: 'Mock message.',
+        message: "Mock message.",
       },
     });
   });
@@ -56,15 +56,15 @@ describe('taskSlice', () => {
     store.clearActions();
   });
 
-  test('calls the taskService to fetch tasks', async () => {
-    const token = 'mock_token';
+  test("calls the taskService to fetch tasks", async () => {
+    const token = "mock_token";
     const tasks: Task[] = [
       {
-        _id: '649e4e271947362dc297436a',
-        text: 'Learn Tailwind',
-        user: '649023b41935f5557f8e7ca4',
-        createdAt: '2023-06-30T03:38:15.287Z',
-        updatedAt: '2023-06-30T03:38:15.287Z',
+        _id: "649e4e271947362dc297436a",
+        text: "Learn Tailwind",
+        user: "649023b41935f5557f8e7ca4",
+        createdAt: "2023-06-30T03:38:15.287Z",
+        updatedAt: "2023-06-30T03:38:15.287Z",
         __v: 0,
       },
     ];
@@ -73,7 +73,7 @@ describe('taskSlice', () => {
     const getTasksMock = jest.fn().mockResolvedValue(tasks);
 
     // Spy on the service and replace it with the mocked function
-    jest.spyOn(taskService, 'getTasks').mockImplementation(getTasksMock);
+    jest.spyOn(taskService, "getTasks").mockImplementation(getTasksMock);
 
     // Dispatch the thunk with the token
     await store.dispatch(getTasks()); // Make sure to pass the token here

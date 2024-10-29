@@ -12,7 +12,7 @@ const TaskList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { tasks, isLoading, isError, message } = useSelector(
-    (state: RootState) => state.tasks
+    (state: RootState) => state.tasks,
   );
 
   useEffect(() => {

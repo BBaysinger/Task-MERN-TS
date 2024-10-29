@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 import axios from "axios";
 
-
 // For sending login credentials.
 export interface UserData {
   username?: string;
@@ -41,44 +40,43 @@ export const register = createAsyncThunk(
     try {
       return await authService.register(userData);
     } catch (error) {
-      let message = 'An error occurred.';
+      let message = "An error occurred.";
 
       if (error instanceof Error) {
         message = error.message;
       }
 
       if (axios.isAxiosError(error)) {
-        message =
-          (error.response?.data?.message) ||
-          message; // Keep fallback message
+        message = error.response?.data?.message || message; // Keep fallback message
       }
       return thunkAPI.rejectWithValue(message);
     }
-  }
+  },
 );
 
-export const login = createAsyncThunk("auth/login", async (userData: UserData, thunkAPI) => {
-  try {
-    return await authService.login(userData);
-  } catch (error) {
-    let message = 'An error occurred.';
+export const login = createAsyncThunk(
+  "auth/login",
+  async (userData: UserData, thunkAPI) => {
+    try {
+      return await authService.login(userData);
+    } catch (error) {
+      let message = "An error occurred.";
 
-    if (error instanceof Error) {
-      message = error.message;
-    }
+      if (error instanceof Error) {
+        message = error.message;
+      }
 
-    if (axios.isAxiosError(error)) {
-      message =
-        (error.response?.data?.message) ||
-        message; // Keep fallback message
+      if (axios.isAxiosError(error)) {
+        message = error.response?.data?.message || message; // Keep fallback message
+      }
+      return thunkAPI.rejectWithValue(message);
     }
-    return thunkAPI.rejectWithValue(message);
-  }
-});
+  },
+);
 
 export const logout = createAsyncThunk(
   "auth/logout",
-  async () => await authService.logout()
+  async () => await authService.logout(),
 );
 
 export const authSlice = createSlice({
