@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 // Function to connect to the MongoDB database
 const connectDB = async () => {
   try {
     // Connect to MongoDB using the URI from environment variables
     const connect = await mongoose.connect(process.env.MONGO_URI as string);
-    
+
     // Log a message when the connection is successful
     console.log(`MongoDB Connected: ${connect.connection.host}`);
   } catch (err) {
@@ -20,12 +20,12 @@ const disconnectDB = async () => {
   try {
     // Disconnect from MongoDB
     await mongoose.disconnect();
-    
+
     // Log a message when the disconnection is successful
-    console.log('MongoDB Disconnected');
+    console.log("MongoDB Disconnected");
   } catch (err) {
     // Log an error message if the disconnection fails
-    console.error('Error disconnecting from MongoDB:', err);
+    console.error("Error disconnecting from MongoDB:", err);
   }
 };
 

@@ -46,7 +46,6 @@ test("should register a new user", async () => {
 });
 
 test("should return a 400 error if any field is missing", async () => {
-
   const req = createMockRequest();
   // const req = {
   //   body: {
@@ -61,7 +60,7 @@ test("should return a 400 error if any field is missing", async () => {
   const next: NextFunction = jest.fn();
 
   await expect(registerUser(req, res, next)).rejects.toThrow(
-    "All fields are mandatory"
+    "All fields are mandatory",
   );
   expect(res.status).toHaveBeenCalledWith(400);
 });

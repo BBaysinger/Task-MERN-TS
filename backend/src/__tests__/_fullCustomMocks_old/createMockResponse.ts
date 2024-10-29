@@ -1,21 +1,25 @@
 import { Response } from "express";
-import { Application, ParamsDictionary, Request } from "express-serve-static-core";
+import {
+  Application,
+  ParamsDictionary,
+  Request,
+} from "express-serve-static-core";
 import { Socket } from "net";
 import { ParsedQs } from "qs";
 
 /**
  * Mock HTTP Response instances for TypeScript typing purposes.
- * 
+ *
  * A little crazy that this is necessary. Give me a shout if you know a better way.
  * The Response object in Express is a class,
  * and we can't just create a new instance of it form there. We need to mock it out.
- * 
+ *
  * This is untested. Proceed with caution and consider that improvements
  * will probably be necessary.
- * 
+ *
  * I [BB] worked this out with Chatbot and ChatGPT. They both a agree on this as the solution.
  * There are libraries that can help with this, but custom mocks offer more control.
- * 
+ *
  * @author Bradley Baysinger
  * @since The beginning of time.
  * @version N/A
@@ -65,13 +69,21 @@ class MockResponseBody {
 }
 
 // Mock response
-export class MockResponse extends MockResponseBody implements Partial<Response> {
-
+export class MockResponse
+  extends MockResponseBody
+  implements Partial<Response>
+{
   constructor() {
     super();
     this.headers = new MockResponseHeaders();
     this.app = {} as Application<Record<string, any>>;
-    this.req = {} as Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>;
+    this.req = {} as Request<
+      ParamsDictionary,
+      any,
+      any,
+      ParsedQs,
+      Record<string, any>
+    >;
   }
 
   // Implementing commonly used Response methods
@@ -97,8 +109,8 @@ export class MockResponse extends MockResponseBody implements Partial<Response> 
   headers: MockResponseHeaders;
   app: Application<Record<string, any>>;
   req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>;
-  statusMessage: string = '';
-  charset: string = '';
+  statusMessage: string = "";
+  charset: string = "";
   locals = {};
 
   // Response Handling Methods
@@ -158,7 +170,7 @@ export class MockResponse extends MockResponseBody implements Partial<Response> 
   writeableLength = 0;
   writeableCorked = 0;
   writeableUncorked = false;
-  writeableEncoding = '';
+  writeableEncoding = "";
   writeableHighWaterMark = 0;
   _write = jest.fn();
   _destroy = jest.fn();

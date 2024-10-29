@@ -1,5 +1,10 @@
 import express from "express";
-import { getTasks, setTask, updateTask, deleteTask } from "controllers/taskController";
+import {
+  getTasks,
+  setTask,
+  updateTask,
+  deleteTask,
+} from "controllers/taskController";
 import protect from "middleware/authMiddleware";
 
 const expressRouter = express.Router();

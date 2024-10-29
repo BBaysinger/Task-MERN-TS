@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
-import { connectDB, disconnectDB } from 'connect/database';
+import { connectDB, disconnectDB } from "connect/database";
 
 // Load environment variables from .env.test or similar
-dotenv.config({ path: '.env.test' });
+dotenv.config({ path: ".env.test" });
 
 // Establish a database connection before any tests run
 beforeAll(async () => {

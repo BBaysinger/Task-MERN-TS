@@ -30,7 +30,7 @@ describe("Task Controller (with SuperTest)", () => {
       .get("/api/tasks")
       .set("Authorization", "Bearer mock-token") // Mock JWT if needed
       .expect(200) // Expect a 200 (OK) response
-      .expect(res => {
+      .expect((res) => {
         // Check if the response body matches the mock tasks
         expect(res.body).toEqual(tasks);
       });
@@ -49,7 +49,7 @@ describe("Task Controller (with SuperTest)", () => {
       .send({ text: "New Task" }) // Send a task with text
       .set("Authorization", "Bearer mock-token")
       .expect(201) // Expect a 201 (Created) response
-      .expect(res => {
+      .expect((res) => {
         // Check if the response body matches the mock task
         expect(res.body).toEqual(task);
       });
@@ -63,7 +63,7 @@ describe("Task Controller (with SuperTest)", () => {
       .send({})
       .set("Authorization", "Bearer mock-token")
       .expect(400) // Expect a 400 (Bad Request) response
-      .expect(res => {
+      .expect((res) => {
         // Check if the response body contains the correct error message
         expect(res.body.message).toBe("Please enter a task");
       });
@@ -82,7 +82,7 @@ describe("Task Controller (with SuperTest)", () => {
       .send({ text: "Updated Task" })
       .set("Authorization", "Bearer mock-token")
       .expect(401) // Expect a 401 (Unauthorized) response
-      .expect(res => {
+      .expect((res) => {
         // Check if the response body contains the correct error message
         expect(res.body.message).toBe("No such user found");
       });
@@ -90,7 +90,11 @@ describe("Task Controller (with SuperTest)", () => {
 
   // Test case for handling unauthorized task update
   test("should return a 401 error if user is not authorized to update the task", async () => {
-    const taskToUpdate = { _id: "task-id-1", text: "Original Task", user: "user-id-1" };
+    const taskToUpdate = {
+      _id: "task-id-1",
+      text: "Original Task",
+      user: "user-id-1",
+    };
 
     // Mock the Task.findById method to return a task with a different user ID
     jest.spyOn(Task, "findById").mockReturnValue({
@@ -108,7 +112,7 @@ describe("Task Controller (with SuperTest)", () => {
       .send({ text: "Updated Task" })
       .set("Authorization", "Bearer mock-token")
       .expect(401) // Expect a 401 (Unauthorized) response
-      .expect(res => {
+      .expect((res) => {
         // Check if the response body contains the correct error message
         expect(res.body.message).toBe("User is not authorized to update");
       });

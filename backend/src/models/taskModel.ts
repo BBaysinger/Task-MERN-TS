@@ -24,7 +24,7 @@ const taskSchema: Schema<ITask> = new Schema(
   // Add timestamps to track created and updated times
   {
     timestamps: true,
-  }
+  },
 );
 
 // Export the Task model based on the schema

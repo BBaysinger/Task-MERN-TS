@@ -57,7 +57,9 @@ describe("Task Controller", () => {
 
     const next: NextFunction = jest.fn();
 
-    await expect(setTask(req, res, next)).rejects.toThrow("Please enter a task");
+    await expect(setTask(req, res, next)).rejects.toThrow(
+      "Please enter a task",
+    );
     expect(res.status).toHaveBeenCalledWith(400);
   });
 
@@ -66,7 +68,11 @@ describe("Task Controller", () => {
     const userId = "non-existent-user-id";
     const req = createMockRequest();
 
-    const taskToUpdate = { _id: taskId, text: "Original Task", user: "user-id" };
+    const taskToUpdate = {
+      _id: taskId,
+      text: "Original Task",
+      user: "user-id",
+    };
 
     jest.spyOn(Task, "findById").mockReturnValue({
       exec: jest.fn().mockResolvedValue(taskToUpdate),
@@ -79,7 +85,9 @@ describe("Task Controller", () => {
     const res = createMockResponse();
     const next: NextFunction = jest.fn();
 
-    await expect(updateTask(req, res, next)).rejects.toThrow("No such user found");
+    await expect(updateTask(req, res, next)).rejects.toThrow(
+      "No such user found",
+    );
     expect(res.status).toHaveBeenCalledWith(401);
   });
 
@@ -106,7 +114,7 @@ describe("Task Controller", () => {
     const next: NextFunction = jest.fn();
 
     await expect(updateTask(req, res, next)).rejects.toThrow(
-      "User is not authorized to update"
+      "User is not authorized to update",
     );
     expect(res.status).toHaveBeenCalledWith(401);
   });

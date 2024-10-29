@@ -40,7 +40,7 @@ const userSchema: Schema<IUser> = new Schema(
     },
   },
   // Add timestamps to track created and updated times
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Export the User model based on the schema

@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 import Task from "models/taskModel";
 import User from "models/userModel";
 

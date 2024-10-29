@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-import { connectDB } from 'connect/database';
+import dotenv from "dotenv";
+import { connectDB } from "connect/database";
 
 // Load environment variables
 dotenv.config();
@@ -8,4 +8,4 @@ dotenv.config();
 connectDB();
 
 // Import the server to start it
-import './server';
+import "./server";
