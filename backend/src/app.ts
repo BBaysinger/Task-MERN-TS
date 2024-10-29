@@ -2,13 +2,13 @@ import express, { Application } from 'express';
 import errorHandler from 'middleware/errorMiddleware';
 import cors from 'cors';
 
-// Import routes
-import taskRoutes from './routes/taskRoutes';
-import userRoutes from './routes/userRoutes';
+import taskRoutes from 'routes/taskRoutes';
+import userRoutes from 'routes/userRoutes';
 
-// Create and configure the Express app
+// Create the Express app
 const app: Application = express();
 
+// Configure the Express app
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());

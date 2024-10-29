@@ -4,13 +4,13 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "dev": "nodemon --files --exec ts-node -r tsconfig-paths/register src/index.ts",
     "build": "tsc -p tsconfig.json",
     "build:prod": "tsc --sourceMap false",
     "lint": "eslint . --ext .ts --ignore-path .gitignore",
     "format": "prettier --write .",
-    "test": "jest --passWithNoTests",
+    "test": "jest --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "clean": "rimraf dist"

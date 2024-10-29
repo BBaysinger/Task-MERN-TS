@@ -4,18 +4,24 @@ import cors from 'cors';
 import taskRoutes from 'routes/taskRoutes';
 import userRoutes from 'routes/userRoutes';
 
-// Create a separate instance of the Express app for testing
 const app: Application = express();
 
+// Use middleware to parse incoming JSON requests
 app.use(express.json());
+
+// Use middleware to parse URL-encoded data
 app.use(express.urlencoded({ extended: false }));
+
+// Enable CORS for cross-origin resource sharing
 app.use(cors());
 
-// Attach routes
+// Mount task-related routes under the /api/tasks endpoint
 app.use('/api/tasks', taskRoutes);
+
+// Mount user-related routes under the /api/users endpoint
 app.use('/api/users', userRoutes);
 
-// Use error handler
+// Use the custom error-handling middleware to handle errors globally
 app.use(errorHandler);
 
 export default app;
