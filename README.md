@@ -2,6 +2,8 @@
 
 by Nabendu Biswas (Author)
 
+To be used for reference and boilerplate for personal projects.
+
 # Major Changes:
 
 - React 18.2.0 > 18.3.1
