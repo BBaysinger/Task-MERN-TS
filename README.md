@@ -2,7 +2,7 @@
 
 by Nabendu Biswas (Author)
 
-To be used for reference and boilerplate for personal projects.
+Intended be used for reference and boilerplate for future projects, but diligence was maintained for purposes of the result to be usable in a future version of the publication. I welcome input on possilbe imporovements with this in mind.
 
 # Major Changes:
 
