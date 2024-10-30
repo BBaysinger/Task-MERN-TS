@@ -4,6 +4,8 @@ by Nabendu Biswas (Author)
 
 Intended be used for reference and boilerplate for future projects (as I opt for TypeScript in everything where I have a choice in the matter), but diligence was maintained for purposes of the result to be usable in a future version of the publication. I welcome input on possible improvements with this in mind.
 
+This is still in progress, but nearly to substanial completion.
+
 # Major Changes:
 
 - React 18.2.0 > 18.3.1
