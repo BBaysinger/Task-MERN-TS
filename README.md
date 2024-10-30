@@ -29,3 +29,5 @@ This is still in progress, but nearly to substanial completion.
 - Formatting with Prettier
 
 - Realigned for adherance to TypeScript project conventions
+
+- user.name > user.firstName and user.lastName (since 99.99% of projects require that)
