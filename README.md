@@ -20,7 +20,7 @@ Intended be used for reference and boilerplate for future projects (as I opt for
 
 - CSS > SASS 1.80.4
 
-- Added SuperTest for mocks typings
+- Included SuperTest 7.0.0 for mocks typings
 
 - Extensive code comments
 
