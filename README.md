@@ -10,7 +10,7 @@ This is still in progress, but nearly to substanial completion.
 
 # Major Changes:
 
-- Root-relative (to `src` directory) imports everywhere via baseUrl to simplify imports
+- Root-relative (to `src` directory) imports everywhere via `baseUrl` to help simplify [I wish this was out of the box]
 
 - React 18.2.0 > 18.3.1
 
