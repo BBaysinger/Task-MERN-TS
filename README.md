@@ -10,25 +10,25 @@ This is still in progress, but nearly to substanial completion.
 
 # Major Changes:
 
-- Root-relative (to `src` directory) imports everywhere via `baseUrl` to help simplify [I wish this was out of the box]
+- Create React App > Vite 5.4.9 + SWC [Because Create React App is deprecated]
+
+- ES6/Babel > TypeScript 4.9.5 (Frontend) 5.6.3 (Backend)
+
+- Root-relative imports (to `src` directory) via `baseUrl` to help simplify [I wish this was out of the box]
 
 - React 18.2.0 > 18.3.1
 
 - React Router 6.14.1 > 6.27.0
-  
-- ES6/Babel > TypeScript 4.9.5 (Frontend) 5.6.3 (Backend)
-  
+
 - React-Redux 8.1.0 > 9.1.2
   
-- Create React App > Vite 5.4.9 + SWC [Create React App is deprecated]
-
 - Express 4.18.2 > 4.21.1
 
 - CSS > SASS 1.80.4 [SASS should be default for every project, IMO]
 
 - Included SuperTest 7.0.0 for mocks typings [Necessitated by TypeScript]
 
-- Extensive code comments
+- Extensive code comments [Should be stripped out for screenshots, but retained in the official repo]
 
 - Formatting with Prettier [An experienced developer sees formatting with version control helps in problem-solving]
 
