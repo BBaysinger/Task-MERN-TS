@@ -10,6 +10,8 @@ This is still in progress, but nearly to substanial completion.
 
 # Major Changes:
 
+- Root-relative imports everywhere
+
 - React 18.2.0 > 18.3.1
 
 - React Router 6.14.1 > 6.27.0
@@ -33,3 +35,7 @@ This is still in progress, but nearly to substanial completion.
 - Realigned for adherance to TypeScript project conventions
 
 - user.name > user.firstName and user.lastName (since 99.99% of projects require that)
+
+# TODO:
+
+- Considering: Add proxy middleware to use .env variable in favor of the package.json proxy field.
