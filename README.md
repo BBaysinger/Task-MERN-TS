@@ -4,6 +4,8 @@ by Nabendu Biswas (Author)
 
 Intended be used for reference and boilerplate for future projects (as I opt for TypeScript in everything where I have a choice in the matter), but diligence was maintained for purposes of the result to be usable in a future version of the publication. I welcome input on possible improvements with this in mind.
 
+Even if TypeScript never becomes part of the scope of the publication, the codebase still benefits from being developed in it.
+
 In my strong opinion, anything that *can* serve as boilerplate deserves to be treated as such. Therefore, features like SASS should be incorporated by default, since every developer should be using SASS.
 
 This is still in progress, but nearly to substanial completion.
