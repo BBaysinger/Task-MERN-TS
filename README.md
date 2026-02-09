@@ -2,13 +2,13 @@
 
 by Nabendu Biswas (Author)
 
-Intended be used for reference and boilerplate for future projects (as I opt for TypeScript in everything where I have a choice in the matter), but diligence was maintained for purposes of the result to be usable in a future version of the publication. I welcome input on possible improvements with this in mind.
+Intended be used for reference or boilerplate for future projects (as I opt for TypeScript in everything where I have a choice in the matter).
 
 Even if TypeScript never becomes part of the scope of the publication, the codebase still benefits from being developed in it.
 
-In my strong opinion, anything that *can* serve as boilerplate deserves to be treated as such. Therefore, features like SASS should be incorporated by default, since every developer should be using SASS.
+In my strong opinion, anything distributed that *can* serve as boilerplate deserves to be treated as such. Therefore, features like SASS should be incorporated by default, since every F/E developer should be using SASS.
 
-This is still in progress, but nearly to substanial completion.
+This is still in progress, but nearly to substantial completion.
 
 # Major Changes:
 
@@ -28,15 +28,13 @@ This is still in progress, but nearly to substanial completion.
 
 - CSS > SASS 1.80.4 [SASS should be default for every project, IMO]
 
-- Included SuperTest 7.0.0 for mocks typings [Necessitated by TypeScript]
+- Included SuperTest 7.0.0 for Express API/request testing (+ TypeScript typings)
 
 - Extensive code comments [Should be stripped out for screenshots, but retained in the official repo]
 
 - Formatting with Prettier [An experienced developer sees formatting with version control helps in problem-solving]
 
-- Realigned some stucture for adherance to TypeScript project conventions
-
-- User model kept as a single `user.name` (instead of splitting to first/last)
+- Realigned some structure for adherence to TypeScript project conventions
 
 # TODO:
 
@@ -52,5 +50,3 @@ Frontend (Vitest + jsdom):
 
 - `cd frontend && npm test`
 - Watch mode: `cd frontend && npm run test:watch`
-
-Note: The `_ES6/` folder is legacy/reference material and is not part of the TypeScript test runs.
