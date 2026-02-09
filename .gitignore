@@ -22,6 +22,9 @@ frontend/build/
 # Backend build files
 backend/dist/
 
+# Legacy/reference code
+_ES6/
+
 # Ignore TypeScript build output
 *.tsbuildinfo
 
