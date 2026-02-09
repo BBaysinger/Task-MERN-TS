@@ -4,7 +4,7 @@ by Nabendu Biswas (Author)
 
 Intended be used for reference or boilerplate for future projects (as I opt for TypeScript in everything where I have a choice in the matter).
 
-In my [BBaysinger] strong opinion, anything distributed that *can* serve as boilerplate deserves to be treated as such. Therefore, features like SASS should be incorporated by default, since every F/E developer should be using SASS. And repos and publications benefit from being developed in TypeScript (even if that's not the scope of the publication.)
+In my [BBaysinger] strong opinion, anything distributed that *can* serve as boilerplate deserves to be treated as such. Therefore, features like SASS should be incorporated by default, since every F/E developer should be using it. And repos and publications benefit from being developed in TypeScript (even if that's not the scope of the publication.)
 
 I'll be updating dependency versions over time.
 
