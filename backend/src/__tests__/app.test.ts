@@ -24,4 +24,8 @@ app.use("/api/users", userRoutes);
 // Use the custom error-handling middleware to handle errors globally
 app.use(errorHandler);
 
+test("test app helper builds", () => {
+	expect(app).toBeDefined();
+});
+
 export default app;

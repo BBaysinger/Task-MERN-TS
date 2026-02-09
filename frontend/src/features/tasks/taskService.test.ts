@@ -22,9 +22,11 @@ describe("taskService", () => {
       },
     ];
 
-    mock
-      .onGet("/api/tasks/", { headers: { Authorization: `Bearer ${token}` } })
-      .reply(200, tasks);
+    mock.onGet("/api/tasks/").reply((config) => {
+      const authHeader = (config.headers as any)?.Authorization;
+      expect(authHeader).toBe(`Bearer ${token}`);
+      return [200, tasks];
+    });
     const response = await taskService.getTasks(token);
     expect(response).toEqual(tasks);
   });

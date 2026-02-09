@@ -137,7 +137,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-node",
+  testEnvironment: "node",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -145,8 +145,28 @@ export default {
   // Adds a location field to test results
   // testLocationInResults: false,
 
+  // Use ts-jest so Jest can execute TypeScript test files.
+  preset: "ts-jest",
+
   // The glob patterns Jest uses to detect test files
-  testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[tj]s?(x)"],
+  // NOTE: Avoid matching every file under __tests__ (helpers live there too).
+  testMatch: ["**/?(*.)+(spec|test).[tj]s?(x)"],
+
+  // Map TS path aliases (tsconfig baseUrl is src/) used throughout the backend.
+  moduleNameMapper: {
+    "^controllers/(.*)$": "<rootDir>/src/controllers/$1",
+    "^models/(.*)$": "<rootDir>/src/models/$1",
+    "^middleware/(.*)$": "<rootDir>/src/middleware/$1",
+    "^routes/(.*)$": "<rootDir>/src/routes/$1",
+    "^connect/(.*)$": "<rootDir>/src/connect/$1",
+    "^types/(.*)$": "<rootDir>/src/types/$1",
+  },
+
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/",
+    "/src/__tests__/_fullCustomMocks_old/",
+  ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [

@@ -1,6 +1,10 @@
 import request from "supertest";
 import app from "./app.test";
 
+beforeAll(() => {
+  process.env.JWT_SECRET = process.env.JWT_SECRET || "test-secret";
+});
+
 // Mock the user model to simulate database operations
 jest.mock("models/userModel", () => {
   const mockUser = {
@@ -31,7 +35,7 @@ describe("User Registration API", () => {
   // Test case to register a new user
   test("should register a new user", async () => {
     const response = await request(app)
-      .post("/api/users/register") // Simulate POST request to register endpoint
+      .post("/api/users") // Simulate POST request to register endpoint
       .send({
         name: "John Doe",
         email: "johndoe@example.com",
@@ -49,7 +53,7 @@ describe("User Registration API", () => {
   // Test case to handle missing fields during registration
   test("should return a 400 error if any field is missing", async () => {
     const response = await request(app)
-      .post("/api/users/register") // Simulate POST request to register endpoint
+      .post("/api/users") // Simulate POST request to register endpoint
       .send({
         name: "John Doe",
         email: "", // Missing email field

@@ -5,6 +5,7 @@ import { getTasks } from "./taskSlice";
 import { Task } from "./taskService";
 import taskService from "./taskService";
 import configureMockStore from "redux-mock-store";
+import { vi } from "vitest";
 
 type FetchTasksSuccess = {
   type: "FETCH_TASKS_SUCCESS";
@@ -70,16 +71,16 @@ describe("taskSlice", () => {
     ];
 
     // Mock the getTasks implementation
-    const getTasksMock = jest.fn().mockResolvedValue(tasks);
+    const getTasksMock = vi.fn().mockResolvedValue(tasks);
 
     // Spy on the service and replace it with the mocked function
-    jest.spyOn(taskService, "getTasks").mockImplementation(getTasksMock);
+    vi.spyOn(taskService, "getTasks").mockImplementation(getTasksMock);
 
     // Dispatch the thunk with the token
-    await store.dispatch(getTasks()); // Make sure to pass the token here
+    const action = await store.dispatch(getTasks());
 
     // Check if the mock was called correctly
     expect(getTasksMock).toHaveBeenCalledWith(token);
-    expect(getTasksMock).toHaveReturnedWith(Promise.resolve(tasks)); // Check return value
+    expect(action.type).toBe("tasks/getAll/fulfilled");
   });
 });

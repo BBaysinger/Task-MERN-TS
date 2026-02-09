@@ -3,8 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 // Define an interface for the User document to enforce type safety
 export interface IUser extends Document {
   _id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   password: string;
 }
@@ -17,15 +16,10 @@ const userSchema: Schema<IUser> = new Schema(
       type: String,
       required: [true, "_id is required"],
     },
-    // First name of the user: String, required field
-    firstName: {
+    // Display name of the user: String, required field
+    name: {
       type: String,
-      required: [true, "firstName is required"],
-    },
-    // Last name of the user: String, required field
-    lastName: {
-      type: String,
-      required: [true, "lastName is required"],
+      required: [true, "Name is required"],
     },
     // Email address: String, required and must be unique
     email: {

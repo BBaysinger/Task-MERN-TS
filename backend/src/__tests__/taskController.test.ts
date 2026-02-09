@@ -1,120 +1,106 @@
-import request from "supertest";
-import app from "./app.test";
+import { getTasks, setTask, updateTask } from "controllers/taskController";
 import Task from "models/taskModel";
 import User from "models/userModel";
 
-// Mock the Task and User models
 jest.mock("models/taskModel");
 jest.mock("models/userModel");
 
-describe("Task Controller (with SuperTest)", () => {
-  // Clear all mock data after each test to prevent interference
+const createRes = () => {
+  const res: any = {};
+  res.status = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
+  return res;
+};
+
+describe("Task Controller", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  // Test case for fetching tasks for an authenticated user
-  test("should get tasks for a user", async () => {
+  test("gets tasks for the current user", async () => {
     const tasks = [
       { _id: "task-id-1", text: "Task 1", user: "user-id" },
       { _id: "task-id-2", text: "Task 2", user: "user-id" },
     ];
 
-    // Mock the Task.find method to return the mock tasks
-    jest.spyOn(Task, "find").mockReturnValue({
-      exec: jest.fn().mockResolvedValue(tasks),
-    } as any);
+    (Task.find as unknown as jest.Mock).mockResolvedValue(tasks);
 
-    // Simulate a GET request to the /api/tasks endpoint
-    await request(app)
-      .get("/api/tasks")
-      .set("Authorization", "Bearer mock-token") // Mock JWT if needed
-      .expect(200) // Expect a 200 (OK) response
-      .expect((res) => {
-        // Check if the response body matches the mock tasks
-        expect(res.body).toEqual(tasks);
-      });
+    const req: any = { user: { _id: "user-id" } };
+    const res = createRes();
+
+    await (getTasks as any)(req, res);
+
+    expect(Task.find).toHaveBeenCalledWith({ user: "user-id" });
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(tasks);
   });
 
-  // Test case for creating a new task for an authenticated user
-  test("should set a new task for a user", async () => {
-    const task = { _id: "new-task-id", text: "New Task", user: "user-id" };
-
-    // Mock the Task.save method to return the mock task
-    jest.spyOn(Task.prototype, "save").mockResolvedValue(task);
-
-    // Simulate a POST request to the /api/tasks endpoint
-    await request(app)
-      .post("/api/tasks")
-      .send({ text: "New Task" }) // Send a task with text
-      .set("Authorization", "Bearer mock-token")
-      .expect(201) // Expect a 201 (Created) response
-      .expect((res) => {
-        // Check if the response body matches the mock task
-        expect(res.body).toEqual(task);
-      });
-  });
-
-  // Test case for handling missing task text during creation
-  test("should return a 400 error for missing task text", async () => {
-    // Simulate a POST request to the /api/tasks endpoint with missing text
-    await request(app)
-      .post("/api/tasks")
-      .send({})
-      .set("Authorization", "Bearer mock-token")
-      .expect(400) // Expect a 400 (Bad Request) response
-      .expect((res) => {
-        // Check if the response body contains the correct error message
-        expect(res.body.message).toBe("Please enter a task");
-      });
-  });
-
-  // Test case for handling a missing user during task update
-  test("should return a 401 error if user is not found", async () => {
-    // Mock the User.findById method to return null (user not found)
-    jest.spyOn(User, "findById").mockReturnValue({
-      exec: jest.fn().mockResolvedValue(null),
-    } as any);
-
-    // Simulate a PUT request to update a task
-    await request(app)
-      .put("/api/tasks/task-id-1")
-      .send({ text: "Updated Task" })
-      .set("Authorization", "Bearer mock-token")
-      .expect(401) // Expect a 401 (Unauthorized) response
-      .expect((res) => {
-        // Check if the response body contains the correct error message
-        expect(res.body.message).toBe("No such user found");
-      });
-  });
-
-  // Test case for handling unauthorized task update
-  test("should return a 401 error if user is not authorized to update the task", async () => {
-    const taskToUpdate = {
-      _id: "task-id-1",
-      text: "Original Task",
-      user: "user-id-1",
+  test("creates a new task when text is provided", async () => {
+    const createdTask = {
+      _id: "new-task-id",
+      text: "New Task",
+      user: "user-id",
     };
 
-    // Mock the Task.findById method to return a task with a different user ID
-    jest.spyOn(Task, "findById").mockReturnValue({
-      exec: jest.fn().mockResolvedValue(taskToUpdate),
-    } as any);
+    (Task.create as unknown as jest.Mock).mockResolvedValue(createdTask);
 
-    // Mock the User.findById method to return a different user
-    jest.spyOn(User, "findById").mockReturnValue({
-      exec: jest.fn().mockResolvedValue({ _id: "user-id-2" }),
-    } as any);
+    const req: any = { user: { _id: "user-id" }, body: { text: "New Task" } };
+    const res = createRes();
 
-    // Simulate a PUT request to update a task
-    await request(app)
-      .put("/api/tasks/task-id-1")
-      .send({ text: "Updated Task" })
-      .set("Authorization", "Bearer mock-token")
-      .expect(401) // Expect a 401 (Unauthorized) response
-      .expect((res) => {
-        // Check if the response body contains the correct error message
-        expect(res.body.message).toBe("User is not authorized to update");
-      });
+    await (setTask as any)(req, res);
+
+    expect(Task.create).toHaveBeenCalledWith({ text: "New Task", user: "user-id" });
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(createdTask);
+  });
+
+  test("returns 400 when creating a task without text", async () => {
+    const req: any = { user: { _id: "user-id" }, body: {} };
+    const res = createRes();
+
+    await expect((setTask as any)(req, res)).rejects.toThrow("Please enter a task");
+    expect(res.status).toHaveBeenCalledWith(400);
+  });
+
+  test("returns 401 when updating a task and user does not exist", async () => {
+    const taskToUpdate = {
+      _id: "task-id-1",
+      user: { toString: () => "user-id" },
+    };
+
+    (Task.findById as unknown as jest.Mock).mockResolvedValue(taskToUpdate);
+    (User.findById as unknown as jest.Mock).mockResolvedValue(null);
+
+    const req: any = {
+      params: { id: "task-id-1" },
+      user: { _id: "user-id" },
+      body: { text: "Updated Task" },
+    };
+    const res = createRes();
+
+    await expect((updateTask as any)(req, res)).rejects.toThrow("No such user found");
+    expect(res.status).toHaveBeenCalledWith(401);
+  });
+
+  test("returns 401 when updating a task user is not authorized", async () => {
+    const taskToUpdate = {
+      _id: "task-id-1",
+      user: { toString: () => "owner-user-id" },
+    };
+
+    (Task.findById as unknown as jest.Mock).mockResolvedValue(taskToUpdate);
+    (User.findById as unknown as jest.Mock).mockResolvedValue({ id: "user-id" });
+
+    const req: any = {
+      params: { id: "task-id-1" },
+      user: { _id: "user-id" },
+      body: { text: "Updated Task" },
+    };
+    const res = createRes();
+
+    await expect((updateTask as any)(req, res)).rejects.toThrow(
+      "User is not authorized to update",
+    );
+    expect(res.status).toHaveBeenCalledWith(401);
   });
 });

@@ -48,3 +48,10 @@ export default tseslint.config({
   },
 });
 ```
+
+## Testing
+
+This frontend uses Vitest.
+
+- Run once: `npm test`
+- Watch: `npm run test:watch`

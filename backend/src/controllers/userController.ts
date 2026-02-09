@@ -36,9 +36,8 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   // If user is created successfully, send a response with user details and a token
   if (user) {
     res.status(201).json({
-      _id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      _id: user._id,
+      name: user.name,
       email: user.email,
       token: generateJWTtoken(user._id), // Generate JWT token
     });
@@ -60,9 +59,8 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   // If user is found and the password matches, send user details and a token
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
-      _id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      _id: user._id,
+      name: user.name,
       email: user.email,
       token: generateJWTtoken(user._id), // Generate JWT token
     });
@@ -85,8 +83,8 @@ const getCurrentUser = asyncHandler(async (req: Request, res: Response) => {
   }
 
   // Destructure user details and send a response
-  const { _id, firstName, lastName, email } = user;
-  res.status(200).json({ id: _id, firstName, lastName, email });
+  const { _id, name, email } = user;
+  res.status(200).json({ id: _id, name, email });
 });
 
 // Helper function to generate a JWT token for the user

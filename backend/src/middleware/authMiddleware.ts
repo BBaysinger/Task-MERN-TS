@@ -39,8 +39,7 @@ export const protect = asyncHandler(
         // Attach user data to the request object (excluding password) for further use in protected routes
         req.user = {
           _id: user._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
+          name: user.name,
           email: user.email,
         };
 

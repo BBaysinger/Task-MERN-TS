@@ -36,8 +36,21 @@ This is still in progress, but nearly to substanial completion.
 
 - Realigned some stucture for adherance to TypeScript project conventions
 
-- user.name > user.firstName and user.lastName (since 99.99% of real-world projects require that)
+- User model kept as a single `user.name` (instead of splitting to first/last)
 
 # TODO:
 
 - Considering: Add proxy middleware to use .env variable in favor of the package.json proxy field.
+
+# Testing
+
+Backend (Jest + ts-jest):
+
+- `cd backend && npm test`
+
+Frontend (Vitest + jsdom):
+
+- `cd frontend && npm test`
+- Watch mode: `cd frontend && npm run test:watch`
+
+Note: The `_ES6/` folder is legacy/reference material and is not part of the TypeScript test runs.
